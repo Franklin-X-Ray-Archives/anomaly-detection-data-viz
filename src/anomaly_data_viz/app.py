@@ -8,7 +8,11 @@ from dash import html
 import dash_bootstrap_components as dbc
 
 
-app = dash.Dash(name='anomaly-data-viz', external_stylesheets=[dbc.themes.LUX])
+from flask import Flask
+
+server = Flask('Dash app')
+
+app = dash.Dash(name='anomaly-data-viz',server=server ,external_stylesheets=[dbc.themes.LUX])
 app.title = 'anomaly-data-viz'
 
 
