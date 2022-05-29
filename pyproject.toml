@@ -3,6 +3,12 @@ name = "anomaly-data-viz"
 version = "0.1.0"
 description = ""
 authors = ["José Manuel S <s5po@gmx.com>"]
+packages = [
+    { include = "anomaly_data_viz", from = "src" },
+]
+
+[tool.poetry.scripts]
+anomaly_data_viz = "anomaly_data_viz.main:main"
 
 [tool.poetry.dependencies]
 python = "^3.9"
