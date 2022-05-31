@@ -10,12 +10,14 @@ import dash_bootstrap_components as dbc
 
 from flask import Flask
 
-server = Flask('Dash app')
+server = Flask("Dash app")
 
-app = dash.Dash(name='anomaly-data-viz',server=server ,external_stylesheets=[dbc.themes.LUX])
-app.title = 'anomaly-data-viz'
+app = dash.Dash(
+    name="anomaly-data-viz", server=server, external_stylesheets=[dbc.themes.LUX]
+)
+app.title = "anomaly-data-viz"
 
 
-#app.run_server()
+# app.run_server()
 
-var=99
+var = 99
