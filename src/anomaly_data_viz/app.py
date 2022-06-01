@@ -14,6 +14,9 @@ from flask import Flask
 from typing import Sequence, TypeVar
 from config import *
 
+from plot import *
+from utils import upload_file
+
 
 server = Flask("Dash app")
 
@@ -57,30 +60,30 @@ def about_popover(n, is_open, active):
 
 ########################## Body ##########################
 # Input
-upload= html.Div(
-    [
-        dbc.Label(" Upload your file", html_for="upload-file"), 
-        dcc.Upload(id='upload-file', children=html.Div(['Drag and Drop or ', html.A('Select Files')]),
-               style={'width':'100%', 'height':'60px', 'lineHeight':'60px', 'borderWidth':'1px', 'borderStyle':'dashed',
-                      'borderRadius':'5px', 'textAlign':'center', 'margin':'10px'} ),
-        html.Div(id='file-name', style={"marginLeft":"20px"})
-    ],
-    className="mb-3",
-)
-
-inputs = dbc.Form([
-    upload
-    ## upload a file
-#    html.Br(),
-#    dbc.Label(" Upload your file", html_for="upload-file"), 
-#    dcc.Upload(id='upload-file', children=html.Div(['Drag and Drop or ', html.A('Select Files')]),
+#upload= html.Div(
+#    [
+#        dbc.Label(" Upload your file", html_for="upload-file"), 
+#        dcc.Upload(id='upload-file', children=html.Div(['Drag and Drop or ', html.A('Select Files')]),
 #               style={'width':'100%', 'height':'60px', 'lineHeight':'60px', 'borderWidth':'1px', 'borderStyle':'dashed',
 #                      'borderRadius':'5px', 'textAlign':'center', 'margin':'10px'} ),
-#    html.Div(id='file-name', style={"marginLeft":"20px"}),
+#        html.Div(id='file-name', style={"marginLeft":"20px"})
+#    ],
+#    className="mb-3",
+#)
+
+inputs = dbc.Form([
+#    upload
+    ## upload a file
+    html.Br(),
+    dbc.Label(" Upload your file", html_for="upload-file"), 
+    dcc.Upload(id='upload-file', children=html.Div(['Drag and Drop or ', html.A('Select Files')]),
+               style={'width':'100%', 'height':'60px', 'lineHeight':'60px', 'borderWidth':'1px', 'borderStyle':'dashed',
+                      'borderRadius':'5px', 'textAlign':'center', 'margin':'10px'} ),
+    html.Div(id='file-name', style={"marginLeft":"20px"}),
 
     ## run button
-    #html.Br(),html.Br(),
-    #dbc.Col(dbc.Button("run", id="run", color="primary"))
+    html.Br(),html.Br(),
+    dbc.Col(dbc.Button("run", id="run", color="primary"))
 ])
 
 
@@ -109,25 +112,29 @@ body = dbc.Row([
 
 
 # Callbacks
-#@app.callback(output=[
-#                      Output(component_id="file-name", component_property="children")],  
-#              inputs=[Input(component_id="upload-file", component_property="filename")]
-#              )
-#def upload_event(filename):
-#    div = "" if filename is None else "Use file "+filename
-#    return {'display':'block'} if filename is None else {'display':'none'}, div
+@app.callback(output=[
+                      Output(component_id="file-name", component_property="children")
+                      ],  
+              inputs=[Input(component_id="upload-file", component_property="filename")]
+              )
+def upload_event(filename):
+    div = "" if filename is None else "Use file "+filename
+    #return {'display':'block'} if filename is None else {'display':'none'}, div
+    return  [div]
 
 
-#@app.callback(output=[Output(component_id="title", component_property="children"),
-#                      Output(component_id="plot", component_property="figure"  )],
-#              inputs=[Input(component_id="run", component_property="n_clicks")],
-#              state=[State("upload-file","contents"), State("upload-file","filename")])
-
-#def results(n_clicks, max_capacity, n_rules, contents, filename):
-#    if contents is not None:
-#        dtf = upload_file(contents, filename) 
-#    out = Plot(dtf)
-#    return out.print_title(max_capacity, filename)
+@app.callback(output=[Output(component_id="title", component_property="children"),
+                      Output(component_id="plot", component_property="figure"  )],
+              inputs=[Input(component_id="run", component_property="n_clicks")],
+              state=[State("upload-file","contents"), State("upload-file","filename")])
+def results(n_clicks, contents, filename):
+    if contents is not None:
+        dtf = upload_file(contents, filename) 
+        print(dtf, type(dtf))
+        
+    out = Plot()
+    #return out.print_title( filename)
+    return "filename",  out.plot()
 
 
 
