@@ -118,8 +118,7 @@ body = dbc.Row([
               inputs=[Input(component_id="upload-file", component_property="filename")]
               )
 def upload_event(filename):
-    div = "" if filename is None else "Use file "+filename
-    #return {'display':'block'} if filename is None else {'display':'none'}, div
+    div = "" if filename is None else "Using file: {}".format(filename)
     return  [div]
 
 
@@ -129,12 +128,14 @@ def upload_event(filename):
               state=[State("upload-file","contents"), State("upload-file","filename")])
 def results(n_clicks, contents, filename):
     if contents is not None:
-        dtf = upload_file(contents, filename) 
-        print(dtf, type(dtf))
+        dataset = upload_file(contents, filename) 
+        print(dataset, type(dataset.head() ) )
+    else:
+        import plotly.express as px
+        dataset = px.data.iris()
         
-    out = Plot()
-    #return out.print_title( filename)
-    return "filename",  out.plot()
+    figure = Plot(dataset)
+    return "filename",  figure.plot()
 
 
 
