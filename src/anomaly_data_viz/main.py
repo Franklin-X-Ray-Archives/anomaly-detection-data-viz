@@ -1,11 +1,10 @@
 from app import *
+from config import *
 
-print("corr")
 
 
 def main():
-    #print(var)
-    app.run_server(debug=True, host="0.0.0.0", port=5000)
+    app.run_server(debug=True, host=AppConfig.host , port=AppConfig.port )
 
 
 if __name__ == "__main__":

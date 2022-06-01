@@ -8,9 +8,12 @@ from dash import dcc
 from dash import html
 
 import dash_bootstrap_components as dbc
-
-
 from flask import Flask
+
+
+from typing import Sequence, TypeVar
+from config import *
+
 
 server = Flask("Dash app")
 
@@ -20,13 +23,11 @@ app = dash.Dash(
 app.title = "anomaly-data-viz"
 
 
-# app.run_server()
-
 
 
 navbar = dbc.Nav(className="nav nav-pills", children=[
     ## logo/home
-#    dbc.NavItem(html.Img(src=app.get_asset_url("logo.PNG"), height="40px")),
+    dbc.NavItem(html.Img(src= "http://www.torreingenieria.unam.mx/images/logo-iimas-azul.png", height="40px")),
     ## about
     dbc.NavItem(html.Div([
         dbc.NavLink("About", href="/", id="about-popover", active=False),
@@ -36,16 +37,61 @@ navbar = dbc.Nav(className="nav nav-pills", children=[
     ])),
     ## links
     dbc.DropdownMenu(label="Links", nav=True, children=[
-        dbc.DropdownMenuItem([html.I(className="fa fa-github"), "  Code"], href= "github.com" , target="_blank"),
+        dbc.DropdownMenuItem([html.I(className="fa fa-github"), "  Code"], href=AppConfig.repository  , target="_blank"),
     ])
 ])
+
+
+# Callbacks
+@app.callback(output=[Output(component_id="about", component_property="is_open"), 
+                      Output(component_id="about-popover", component_property="active")], 
+              inputs=[Input(component_id="about-popover", component_property="n_clicks")], 
+              state=[State("about","is_open"), State("about-popover","active")])
+
+def about_popover(n, is_open, active):
+    if n:
+        return not is_open, active
+    return is_open, active
+
+
+
+########################## Body ##########################
+# Input
+upload= html.Div(
+    [
+        dbc.Label(" Upload your file", html_for="upload-file"), 
+        dcc.Upload(id='upload-file', children=html.Div(['Drag and Drop or ', html.A('Select Files')]),
+               style={'width':'100%', 'height':'60px', 'lineHeight':'60px', 'borderWidth':'1px', 'borderStyle':'dashed',
+                      'borderRadius':'5px', 'textAlign':'center', 'margin':'10px'} ),
+        html.Div(id='file-name', style={"marginLeft":"20px"})
+    ],
+    className="mb-3",
+)
+
+inputs = dbc.Form([
+    upload
+    ## upload a file
+#    html.Br(),
+#    dbc.Label(" Upload your file", html_for="upload-file"), 
+#    dcc.Upload(id='upload-file', children=html.Div(['Drag and Drop or ', html.A('Select Files')]),
+#               style={'width':'100%', 'height':'60px', 'lineHeight':'60px', 'borderWidth':'1px', 'borderStyle':'dashed',
+#                      'borderRadius':'5px', 'textAlign':'center', 'margin':'10px'} ),
+#    html.Div(id='file-name', style={"marginLeft":"20px"}),
+
+    ## run button
+    #html.Br(),html.Br(),
+    #dbc.Col(dbc.Button("run", id="run", color="primary"))
+])
+
+
+
 
 
 # Output
 body = dbc.Row([
         ## input
         dbc.Col(md=3, children=[
-            #inputs, 
+            inputs, 
             html.Br(),html.Br(),html.Br(),
         ]),
         ## output
@@ -62,6 +108,31 @@ body = dbc.Row([
 ])
 
 
+# Callbacks
+#@app.callback(output=[
+#                      Output(component_id="file-name", component_property="children")],  
+#              inputs=[Input(component_id="upload-file", component_property="filename")]
+#              )
+#def upload_event(filename):
+#    div = "" if filename is None else "Use file "+filename
+#    return {'display':'block'} if filename is None else {'display':'none'}, div
+
+
+#@app.callback(output=[Output(component_id="title", component_property="children"),
+#                      Output(component_id="plot", component_property="figure"  )],
+#              inputs=[Input(component_id="run", component_property="n_clicks")],
+#              state=[State("upload-file","contents"), State("upload-file","filename")])
+
+#def results(n_clicks, max_capacity, n_rules, contents, filename):
+#    if contents is not None:
+#        dtf = upload_file(contents, filename) 
+#    out = Plot(dtf)
+#    return out.print_title(max_capacity, filename)
+
+
+
+
+#-----------Layout
 app.layout = dbc.Container(fluid=True, children=[
     html.H1("Anomaly data viz", id="nav-pills"),
     navbar,
