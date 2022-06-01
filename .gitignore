@@ -132,3 +132,7 @@ dmypy.json
 #Vim swap files
 *.swp
 
+#Datasets
+*.csv
+
+
