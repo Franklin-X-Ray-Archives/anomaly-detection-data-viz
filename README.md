@@ -2,7 +2,10 @@
 Dash app for anomaly data viz
 
 
-poetry run python src/anomaly_data_viz/main.py
+### Installation
 
+poetry install
+
+### Execution
 
 poetry run poe dev
