@@ -59,12 +59,14 @@ jobs:
       #----------------------------------------------
       # install your root project, if required
       #----------------------------------------------
-      - name: Install library
-        run: poetry install --no-interaction
+      - name: Install project
+        run: poetry install
+      - name: Show project
+        run: poetry show
       #----------------------------------------------
       #              run test suite
       #----------------------------------------------
-      - name: Run tests
-        run: |
-          poetry run pytest tests/
-          coverage report
+      #- name: Run tests
+      #  run: |
+      #    poetry run pytest tests/
+      #    coverage report
