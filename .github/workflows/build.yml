@@ -61,12 +61,12 @@ jobs:
       #----------------------------------------------
       - name: Install project
         run: poetry install
+        
       - name: Show project
         run: poetry show
       #----------------------------------------------
       #              run test suite
       #----------------------------------------------
-      #- name: Run tests
-      #  run: |
-      #    poetry run pytest tests/
+      - name: Run tests
+        run: poetry run pytest tests/
       #    coverage report
