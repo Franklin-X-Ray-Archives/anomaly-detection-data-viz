@@ -58,6 +58,8 @@ jobs:
         run: poetry run coverage run -m pytest #poetry run pytest tests/
       - name: Compute coverage
         run: poetry run coverage report
+      - name: Run toxic env
+        run: poetry run tox -e py
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
