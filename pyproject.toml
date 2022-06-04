@@ -16,6 +16,7 @@ dash = "^2.4.1"
 dash-bootstrap-components = "^1.1.0"
 pandas = "^1.4.2"
 coverage = "^6.4.1"
+tox = "^3.25.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
