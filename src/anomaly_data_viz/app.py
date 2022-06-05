@@ -59,20 +59,8 @@ def about_popover(n, is_open, active):
 
 
 ########################## Body ##########################
-# Input
-#upload= html.Div(
-#    [
-#        dbc.Label(" Upload your file", html_for="upload-file"), 
-#        dcc.Upload(id='upload-file', children=html.Div(['Drag and Drop or ', html.A('Select Files')]),
-#               style={'width':'100%', 'height':'60px', 'lineHeight':'60px', 'borderWidth':'1px', 'borderStyle':'dashed',
-#                      'borderRadius':'5px', 'textAlign':'center', 'margin':'10px'} ),
-#        html.Div(id='file-name', style={"marginLeft":"20px"})
-#    ],
-#    className="mb-3",
-#)
 
 inputs = dbc.Form([
-#    upload
     ## upload a file
     html.Br(),
     dbc.Label(" Upload your file", html_for="upload-file"), 
@@ -85,8 +73,6 @@ inputs = dbc.Form([
     html.Br(),html.Br(),
     dbc.Col(dbc.Button("run", id="run", color="primary"))
 ])
-
-
 
 
 
