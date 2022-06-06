@@ -9,3 +9,4 @@ poetry install
 ### Execution
 
 poetry run poe dev
+poetry run pre-commit install
