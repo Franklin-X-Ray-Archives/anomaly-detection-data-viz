@@ -1,10 +1,11 @@
 """Configure and run app server."""
 import os
 
-from app import App
-from config import AppConfig
 from dotenv import load_dotenv
 from pydantic import ValidationError
+
+from anomaly_data_viz.app import App
+from anomaly_data_viz.config import AppConfig
 
 
 def main() -> int:
@@ -12,13 +13,13 @@ def main() -> int:
     load_dotenv()
     try:
         app_config = AppConfig(
-            name=os.environ.get("APP_NAME"),
-            title=os.environ.get("APP_TITLE"),
-            debug=os.environ.get("DEBUG"),
-            host=os.environ.get("APP_HOST"),
-            port=os.environ.get("APP_PORT"),
-            repository=os.environ.get("APP_REPOSITORY"),
-            assets_folder=os.environ.get("APP_ASSETS_FOLDER"),
+            name=str(os.environ.get("APP_NAME")),
+            title=str(os.environ.get("APP_TITLE")),
+            debug=bool(os.environ.get("DEBUG")),
+            host=str(os.environ.get("APP_HOST")),
+            port=5000,
+            repository=str(os.environ.get("APP_REPOSITORY")),
+            assets_folder=str(os.environ.get("APP_ASSETS_FOLDER")),
         )
 
         App.app.run(debug=app_config.debug, host=app_config.host, port=app_config.port)

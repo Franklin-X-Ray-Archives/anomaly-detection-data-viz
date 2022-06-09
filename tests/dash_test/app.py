@@ -1,5 +1,4 @@
-"""Dash app definition."""
-
+"""Dash app definition for testing."""
 from dataclasses import dataclass
 
 import dash
