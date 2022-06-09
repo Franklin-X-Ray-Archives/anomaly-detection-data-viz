@@ -58,6 +58,6 @@ def test_config_repr():
         repository=os.environ.get("APP_REPOSITORY"),
         assets_folder=os.environ.get("APP_ASSETS_FOLDER"),
     )
-    app_config_repr = repr(app_config)
+    app_config_repr = app_config.repr_config()
     assert isinstance(app_config_repr, str)
     assert len(app_config_repr) > 0

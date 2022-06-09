@@ -19,7 +19,7 @@ class AppConfig:
         """Set debug mode."""
         self.debug = mode
 
-    def __repr__(self) -> str:
+    def repr_config(self) -> str:
         """Return app config string representation."""
         rep = "AppConfig(" + self.name + "," + str(self.host) + "," + str(self.port) + ")"
         return rep
