@@ -21,3 +21,6 @@ ignore-imports = no
 
 [VARIABLES]
 dummy-variables-rgx = _$|dummy
+
+[MESSAGES CONTROL]
+disable=E0213

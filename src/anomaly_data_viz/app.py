@@ -40,9 +40,7 @@ class App:
             dbc.NavItem(
                 html.Div(
                     [
-                        dbc.NavLink(
-                            "About", href="/", id="about-popover", active=False
-                        ),
+                        dbc.NavLink("About", href="/", id="about-popover", active=False),
                         dbc.Popover(
                             id="about",
                             is_open=False,
@@ -79,9 +77,7 @@ class App:
         inputs=[Input(component_id="about-popover", component_property="n_clicks")],
         state=[State("about", "is_open"), State("about-popover", "active")],
     )
-    def about_popover(
-        self, is_clicked: bool, is_open: bool, active: bool
-    ) -> tuple[bool, bool]:
+    def about_popover(is_clicked: bool, is_open: bool, active: bool) -> tuple[bool, bool]:  # type: ignore[misc]
         """Display about popover on navbar."""
         if is_clicked:
             return not is_open, active
@@ -165,7 +161,7 @@ class App:
         output=[Output(component_id="file-name", component_property="children")],
         inputs=[Input(component_id="upload-file", component_property="filename")],
     )
-    def upload_event(self, filename: str) -> list[str]:
+    def upload_event(filename: str) -> list[str]:  # type: ignore[misc]
         """Display name of uploaded file."""
         div = "" if filename is None else f"Using file: {filename}"
         return [div]
@@ -178,9 +174,7 @@ class App:
         inputs=[Input(component_id="run", component_property="n_clicks")],
         state=[State("upload-file", "contents"), State("upload-file", "filename")],
     )
-    def results(
-        self, n_clicks: int, contents: str, filename: str
-    ) -> tuple[str, go.Figure]:
+    def results(n_clicks: int, contents: str, filename: str) -> tuple[str, go.Figure]:  # type: ignore[misc]
         """Load input data and compute graph."""
         print("times", n_clicks)
         if contents is not None:

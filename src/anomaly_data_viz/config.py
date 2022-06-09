@@ -1,6 +1,9 @@
 """Configuration for app."""
 
+from dataclasses import dataclass
 
+
+@dataclass
 class AppConfig:
     """Class for app configuration."""
 
@@ -18,7 +21,5 @@ class AppConfig:
 
     def __repr__(self) -> str:
         """Return app config string representation."""
-        rep = (
-            "AppConfig(" + self.name + "," + str(self.host) + "," + str(self.port) + ")"
-        )
+        rep = "AppConfig(" + self.name + "," + str(self.host) + "," + str(self.port) + ")"
         return rep
