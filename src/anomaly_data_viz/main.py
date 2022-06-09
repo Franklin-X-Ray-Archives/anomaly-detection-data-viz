@@ -12,16 +12,16 @@ def main() -> int:
     """Main function, entrypoint for running app server."""
     load_dotenv()
     try:
-        app_config = AppConfig(
-            name=str(os.environ.get("APP_NAME")),
-            title=str(os.environ.get("APP_TITLE")),
-            debug=bool(os.environ.get("DEBUG")),
-            host=str(os.environ.get("APP_HOST")),
-            port=5000,
-            repository=str(os.environ.get("APP_REPOSITORY")),
-            assets_folder=str(os.environ.get("APP_ASSETS_FOLDER")),
-        )
-
+        config_data = {
+            "name": str(os.environ.get("APP_NAME")),
+            "title": str(os.environ.get("APP_TITLE")),
+            "debug": bool(os.environ.get("DEBUG")),
+            "host": str(os.environ.get("APP_HOST")),
+            "port": str(os.getenv("APP_PORT")),
+            "repository": str(os.environ.get("APP_REPOSITORY")),
+            "assets_folder": str(os.environ.get("APP_ASSETS_FOLDER")),
+        }
+        app_config = AppConfig(**config_data)
         App.app.run(debug=app_config.debug, host=app_config.host, port=app_config.port)
         # App.app.run( *app_config.__dict__ )
         return 0
