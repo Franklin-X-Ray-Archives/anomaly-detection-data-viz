@@ -1,4 +1,4 @@
-"""Test for anomaly_data_viz app"""
+"""Test for anomaly_data_viz utils."""
 
 import base64
 import csv
@@ -11,18 +11,18 @@ from src.anomaly_data_viz.utils import upload_file
 
 
 def test_version():
-    """Test app version"""
+    """Test app version."""
     assert __version__ == "0.1.0"
 
 
 def test_load_empty_file():
-    """Test load empty string file"""
+    """Test load empty string file."""
     dataset = upload_file("", "")
     assert dataset.shape == (0, 0)
 
 
 def test_load_non_empty_file():
-    """Test load non_empty string file"""
+    """Test load non_empty string file."""
     data = [["complex", "3i"], ["real", 15], ["rational", 2.5], ["integer", 2]]
     file_input = StringIO()
     csv.writer(file_input).writerows(data)

@@ -22,6 +22,8 @@ pylint = "^2.14.0"
 pre-commit = "^2.19.0"
 mypy = "^0.960"
 isort = "^5.10.1"
+pydantic = "^1.9.1"
+python-dotenv = "^0.20.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
@@ -33,6 +35,22 @@ pre-commit = "^2.19.0"
 dev = "poetry run python src/anomaly_data_viz/main.py"
 format = "poetry run black ."
 
+[tool.black]                                                                                                                                                                                                         
+line-length = 120                                                                                                                                                                                                    
+                                                                                                                                                                                                                     
+[tool.poetry.extras]                                                                                                                                                                                                 
+lint = [ "pylint",]
+
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.autopep8]
+max_line_length = 120
+ignore = "NIP341"  # or ["E501", "W6"]
+in-place = true
+recursive = true
+aggressive = 3
+
+#- nitpick
