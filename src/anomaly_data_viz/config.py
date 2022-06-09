@@ -1,11 +1,8 @@
 """Configuration for app."""
 
-# from dataclasses import dataclass
-
 from pydantic import BaseModel
 
 
-# @dataclass
 class AppConfig(BaseModel):  # type: ignore[misc]
     """Class for app configuration."""
 
