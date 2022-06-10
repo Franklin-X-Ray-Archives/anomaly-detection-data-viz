@@ -3,6 +3,8 @@
 # pull the official docker image
 FROM python:3.9.4-slim
 
+LABEL maintainer "José Manuel S, s5po@gmx.com"
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
   curl
 
@@ -63,5 +65,7 @@ RUN poetry install
 EXPOSE 5000
 
 RUN which poetry
+
+RUN cat pyproject.toml
 
 ENTRYPOINT ["poetry", "run", "poe", "dev"]
