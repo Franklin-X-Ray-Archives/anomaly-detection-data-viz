@@ -12,4 +12,4 @@ poetry run poe dev poetry run pre-commit install
 
 docker build -t anom-data-viz .
 
-docker run -p 8000:8000 –rm -ti -v $PWD:/app/project anom-data-viz bash
+docker run -e .env -p 5000:5000 -v $PWD:/app/project anom-data-viz bash
