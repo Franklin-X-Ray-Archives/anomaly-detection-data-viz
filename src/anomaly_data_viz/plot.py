@@ -1,4 +1,4 @@
-"""Prepare data and compute graph_objects"""
+"""Prepare data and compute graph_objects."""
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -8,7 +8,7 @@ pio.renderers.default = "browser"
 
 
 class Plot:
-    """Class for graph_objects generation"""
+    """Class for graph_objects generation."""
 
     def __init__(self, dataset: pd.DataFrame):
         self.dataset = dataset
@@ -18,14 +18,15 @@ class Plot:
     #    pass
 
     def print_title(self, filename: str) -> str:
-        """Generate formated graph title"""
+        """Generate formatted graph title."""
         return filename
 
     def plot(self) -> go.Figure:
-        """Generate graph"""
+        """Generate graph."""
         data = self.dataset.copy()
         if data.shape[0] > 0:
             fig = px.scatter(data, x="sepal_width", y="sepal_length", color="species")
         else:
             fig = px.scatter(data)
+        fig.update_layout(clickmode="event+select")
         return fig

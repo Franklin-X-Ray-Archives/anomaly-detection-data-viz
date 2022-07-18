@@ -12,7 +12,7 @@ repos:
       - id: detect-private-key
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.34.0
+    rev: v2.37.1
     hooks:
       - id: pyupgrade
         args: [--py38-plus]
@@ -24,7 +24,7 @@ repos:
         args: [--notice=LICENSE, --h]
 
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.0
+    rev: 1.7.4
     hooks:
       - id: bandit
         args:
@@ -32,8 +32,9 @@ repos:
           - .codestyle/.bandit
           - "-ll"
           - "-ii"
+
   - repo: https://github.com/crate-ci/typos
-    rev: v1.1.9
+    rev: v1.10.2
     hooks:
       - id: typos
         args:
@@ -50,22 +51,20 @@ repos:
       - id: rst-backticks
 
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v2.6.2
+    rev: v2.7.1
     hooks:
       - id: prettier
         args: [--prose-wrap=always, --print-width=120]
 
-  - repo: https://github.com/ambv/black
-    rev: 22.3.0
+  - repo: https://github.com/psf/black
+    rev: stable
     hooks:
       - id: black
+        language_version: python3.9
         args:
           - --line-length=120
           - --include='\.pyi?$'
-
           - --exclude="""\.git | \.__pycache__| \.hg| \.mypy_cache| \.tox| \.venv| dist"""
-
-        language: system
 
   - repo: https://github.com/PyCQA/isort
     rev: 5.10.1
@@ -98,7 +97,7 @@ repos:
         exclude: ^(docs/)
 
   - repo: https://github.com/pycqa/pylint
-    rev: v2.14.1
+    rev: v2.14.5
     hooks:
       - id: pylint
         args:
@@ -108,7 +107,7 @@ repos:
           - --disable=E0401,R1710
 
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.27.1
+    rev: v2.28.0
     hooks:
       - id: commitizen
         stages:

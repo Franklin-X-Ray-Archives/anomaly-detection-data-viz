@@ -1,5 +1,6 @@
 """Dash app definition."""
 
+import json
 from dataclasses import dataclass
 
 import dash
@@ -26,6 +27,8 @@ class App:
     }
 
     app = dash.Dash(server=server, external_stylesheets=[dbc.themes.LUX], **appConfig)
+
+    styles = {"pre": {"border": "thin lightgrey solid", "overflowX": "scroll"}}
 
     navbar = dbc.Nav(
         className="nav nav-pills",
@@ -186,6 +189,16 @@ class App:
         figure = Plot(dataset)
         return "filename", figure.plot()
 
+    @app.callback(Output(component_id="selected-data", component_property="children"), Input("plot", "selectedData"))
+    def display_selected_data(selected_data: dict[str, str]) -> str:  # type: ignore[misc]
+        """Get and display users's selected data."""
+        print("selected_data object:", selected_data)
+        return (
+            json.dumps(selected_data, indent=2)
+            if selected_data is not None
+            else json.dumps({"points": "No points selected"})
+        )
+
     # -----------Layout
     app.layout = dbc.Container(
         fluid=True,
@@ -196,5 +209,24 @@ class App:
             html.Br(),
             html.Br(),
             body,
+            html.Div(
+                className="row",
+                children=[
+                    html.Div(
+                        [
+                            dcc.Markdown(
+                                """
+                **Selection Data**
+
+                Choose the lasso or rectangle tool in the graph's menu bar and then select points in the graph.
+
+                Hold down the shift button while clicking to accumulates/un-accumulates data.
+            """
+                            ),
+                            html.Pre(id="selected-data", style=styles["pre"]),
+                        ]
+                    )
+                ],
+            ),
         ],
     )
